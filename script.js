@@ -99,5 +99,90 @@ for (let i = 0; i < csvString.length; i++) {
     continue;
   }
 
+  switch (currentCell) {
+    case 1:
+      cell1 += csvString[i];
+      break;
+    case 2:
+      cell2 += csvString[i];
+      break;
+    case 3:
+      cell3 += csvString[i];
+      break;
+    case 4:
+      cell4 += csvString[i];
+      break;
 
+    default:
+      console.log(`cell${currentCell} doesn't exist`);
+      break;
+  }
+
+
+  if (
+    (currentCell === 4 && csvString[i + 1] === "\n") ||
+    i + 1 === csvString.length
+  ) {
+    console.log(cell1, cell2, cell3, cell4);
+  }
+}
+
+
+// first part
+console.log("part 1");
+const col = [];
+
+// Count the length based on the number of commas
+let length = 0;
+let countCommas = 1;
+
+for (let i = 0; i < csvString.length; i++) {
+  // break out of loop when newline found
+  if (csvString[i] === "\n") {
+    break;
+  }
+
+  if (csvString[i] === ",") {
+    countCommas++;
+  }
+}
+
+console.log("Number of commas", countCommas);
+
+length = countCommas;
+
+console.log("length is", length);
+
+// Set the number of columns
+for (let i = 0; i < length; i++) {
+  col[i] = "";
+}
+
+console.log(col);
+
+// Store result in two dimensional array
+let mainAry = [];
+let i = 0;
+
+// infinite loop - debug later
+// subary for every newline
+// while (i < csvString.length) {
+//   let subAry = [];
+//   while (csvString[i] !== "\n") {
+//     if (csvString[i] === ",") {
+//       continue;
+//     } else {
+//     }
+//   }
+//   i++;
+// }
+
+const obj = {
+  id: 42,
+  // name:
+  cell: col,
+};
+
+console.log("object:", obj);
+  
 
