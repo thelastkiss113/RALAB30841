@@ -74,5 +74,30 @@ const csvString =
   
   console.log(Array);
 
+  
+
+let cell1 = "";
+let cell2 = "";
+let cell3 = "";
+let cell4 = "";
+
+let currentCell = 1;
+
+for (let i = 0; i < csvString.length; i++) {
+  //checking for new cell
+  if (csvString[i] === ",") {
+    currentCell++;
+    continue;
+  }
+  // checking for a new row
+  if (csvString[i] === "\n") {
+    cell1 = "";
+    cell2 = "";
+    cell3 = "";
+    cell4 = "";
+    currentCell = 1;
+    continue;
+  }
+
 
 
