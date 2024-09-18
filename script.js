@@ -64,26 +64,24 @@ console.log("Part 2 ");
 const csvString =
   "ID,Name,Occupation,Age\n42,Bruce,Knight,41\n57,Bob,Fry Cook,19\n63,Blaine,Quiz Master,58\n98,Bill,Doctor's Assistant,26";
 
-let dataArray = []; // main ary that will contain the sub arrays
-let i = 0;
+let dataArray = []; // main array that will contain the sub arrays
 let cell = ""; // cell of the table of data
-let subAry = [];
+let subArray = [];
 
-const rows = csvString.split("\n");
-// console.log(rows);
+const rows = csvString.split("\n");   //split at \n
 
-// Counting the number of columns
-let word = rows[0]; // using the first row to check the number of columns
-let numOfCol = 1;
+//for loop to increase number of columns
+
+let word = rows[0]; //  first row check # of columns
+let numberOfColumns = 1;
 for (let i = 0; i < word.length; i++) {
-  // if , is found, increment number of columns
   if (word[i] === ",") {
-    numOfCol++;
+    numberOfColumns++;
   }
 }
-// console.log(`num of col is ${numOfCol}`);
+// console.log(`num of col is ${numberOfColumns}`);
 
-// Using the numOfCol
+// Using the numberOfColumns
 // let columns = csvString.split(",");
 // console.log(columns);
 
@@ -112,56 +110,46 @@ for (let i = 0; i < length; i++) {
     } else {
       // console.log(cell);
       // adding cell to sub ary
-      subAry.push(cell);
+      subArray.push(cell);
       cell = "";
     }
   }
 
-  // adding sub ary to main ary
-  dataArray.push(subAry);
+  // adding subArray to dataArray
+  dataArray.push(subArray);
 
   // console.log("");
   // console.log(str);
-  // console.log(subAry);
-  subAry = [];
+  // console.log(subArray);
+  subArray = [];
 }
 
 console.log(dataArray);
 
 // part 3 - Transforming Data
 console.log("Part 3");
-let colAry = dataArray[0];
-console.log("columns are ", colAry);
-let dataArray2 = [];
 
-for (let i = 1; i < dataArray.length; i++) {
-  let table = {};
-  for (j = 0; j < dataArray[i].length; j++) {
-    let id = dataArray[0][j];
-    // console.log("id: ", id);
-    console.log(dataArray[i][j]);
-    table[id] = dataArray[i][j];
-    // console.log(table[id]);
-    // console.log(id);
-    // console.log(table);
-  }
-  console.log("");
-  console.log(table);
-  // console.log("");
-  dataArray2.push(table);
-  // console.log(dataArray2);
-}
+let colArray = dataArray[0]; 
+console.log( "Columns = colArray");
 
+// Transform rows into an array of objects using the header row as keys
+let dataArray2 = dataArray.slice(1).map(row => {
+  let obj = {};
+  row.forEach((cell, index) => {
+    obj[colArray[index]] = cell;
+  });
+  return obj;
+});
 console.log(dataArray2);
 
 // part 4 - Sorting and Manipulating Data
-console.log("Part 4 ");
+console.log("Part 4");
 
 // popping off the end
 dataArray2.pop();
 console.log(dataArray2);
 
-// insert at index 1
+// Insert a new record at index 1
 dataArray2.splice(1, 0, {
   ID: "48",
   Name: "Barry",
@@ -170,26 +158,14 @@ dataArray2.splice(1, 0, {
 });
 console.log(dataArray2);
 
-// Calculating the average length
-let total = 0;
-console.log(dataArray2);
-for (let i = 0; i < dataArray2.length; i++) {
-  // console.log(`index ${i}:`, dataArray2[i].Age);
-  total += Number(dataArray2[i].Age);
-}
-console.log("total is", total);
+// Calculate the average age
+let totalAge = dataArray2.reduce((sum, person) => sum + Number(person.Age), 0);
+console.log("Total age is", totalAge);
 
-let colLength2 = Object.keys(dataArray2[0]).length;
-console.log("Number of keys is", colLength2);
+let averageAge = totalAge / dataArray2.length;
+console.log(`The average age is ${averageAge}`);
 
-console.log(`The average of all ages in the object is ${total / colLength2}`);
-
-// part 5 - full circle
+// part 5 - Full circle
 console.log("Part 5");
-const circleAry = [];
-console.log(dataArray2);
-
-// for loop for keys
-
-// for loop for values
-for (let i = 0; i < dataArray2; i++) {}
+const circleArray = [...dataArray2]; // Copy dataArray2 to circleArray
+console.log(circleArray);
